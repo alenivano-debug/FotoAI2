@@ -6,7 +6,14 @@ id("org.jetbrains.kotlin.plugin.compose")}
 android {
     namespace = "com.fotoai2"
     compileSdk = 35
+    compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
+kotlinOptions {
+    jvmTarget = "17"
+}
     defaultConfig {
         applicationId = "com.fotoai2"
         minSdk = 23
