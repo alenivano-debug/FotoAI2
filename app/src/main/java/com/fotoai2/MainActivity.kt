@@ -1,3 +1,4 @@
+
 package com.fotoai2
 
 import android.os.Bundle
@@ -27,6 +28,18 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun FotoAI2App() {
+    var selectedOption by remember { mutableStateOf<String?>(null) }
+
+    val options = listOf(
+        "✨ AI uređivanje fotografija",
+        "💪 Transformacija tijela",
+        "😊 Uređivanje lica",
+        "🌄 Promjena pozadine",
+        "🪄 Uklanjanje objekata",
+        "🎨 Generiranje AI slika",
+        "🎬 Pretvaranje slike u video"
+    )
+
     val purple = Color(0xFF9B5CFF)
 
     Column(
@@ -34,7 +47,7 @@ fun FotoAI2App() {
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    listOf(Color(0xFF100D1B), Color(0xFF211339))
+                    listOf(Color(0xFF100D1B), Color(0xFF251339))
                 )
             )
             .padding(22.dp),
@@ -57,33 +70,51 @@ fun FotoAI2App() {
 
         Spacer(modifier = Modifier.height(35.dp))
 
-        val options = listOf(
-            "✨ AI uređivanje fotografija",
-            "💪 Transformacija tijela",
-            "😊 Uređivanje lica",
-            "🌄 Promjena pozadine",
-            "🪄 Uklanjanje objekata",
-            "🎨 Generiranje AI slika",
-            "🎬 Pretvaranje slike u video"
-        )
+        if (selectedOption == null) {
+            options.forEach { option ->
+                Button(
+                    onClick = { selectedOption = option },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp)
+                        .height(58.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF34234B)
+                    )
+                ) {
+                    Text(
+                        option,
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                }
+            }
+        } else {
+            Text(
+                selectedOption!!,
+                color = Color.White,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
 
-        options.forEach { option ->
+            Spacer(modifier = Modifier.height(25.dp))
+
+            Text(
+                "Ovdje ćemo dodati alat za ovu AI funkciju.",
+                color = Color.LightGray,
+                fontSize = 16.sp
+            )
+
+            Spacer(modifier = Modifier.height(30.dp))
+
             Button(
-                onClick = { },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 6.dp)
-                    .height(58.dp),
-                shape = RoundedCornerShape(16.dp),
+                onClick = { selectedOption = null },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF34234F)
+                    containerColor = purple
                 )
             ) {
-                Text(
-                    option,
-                    color = Color.White,
-                    fontSize = 16.sp
-                )
+                Text("← Natrag", color = Color.White)
             }
         }
 
